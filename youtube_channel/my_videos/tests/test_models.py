@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.utils import timezone
 
-from youtube_channel.my_videos.models import Theme, Video
+from youtube_channel.my_videos.models import Theme, Video, Comment, Thumb
 
 
 class TestTheme(TestCase):
@@ -30,3 +30,13 @@ class TestVideo(TestCase):
         self.assertEqual(0, self.video.themes.count())
         self.video.themes.add(self.theme)
         self.assertEqual(1, self.video.themes.count())
+
+    def test_score(self):
+        fake_interaction = {'time': timezone.now(), 'video': self.video}
+        Comment.objects.create(is_positive=True, **fake_interaction)
+        Comment.objects.create(is_positive=False, **fake_interaction)
+        Thumb.objects.create(is_positive=True, **fake_interaction)
+        Thumb.objects.create(is_positive=False, **fake_interaction)
+
+        self.assertEqual(5, self.video.score)
+
