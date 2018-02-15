@@ -6,6 +6,7 @@ from datetime import timedelta
 class Theme(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
+    @property
     def success(self):
         a_year_ago = timezone.now() - timedelta(days=365)
         return sum([video.score for video in self.videos.filter(date_uploaded__gte=a_year_ago)])

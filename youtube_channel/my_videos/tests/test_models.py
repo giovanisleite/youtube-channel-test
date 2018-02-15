@@ -29,7 +29,7 @@ class TestTheme(TestCase):
             Thumb.objects.create(is_positive=True, **fake_interaction)
             Thumb.objects.create(is_positive=False, **fake_interaction)
 
-        self.assertEqual(10, self.theme.success())
+        self.assertEqual(10, self.theme.success)
 
 
 class TestVideo(TestCase):
