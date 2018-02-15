@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'youtube_channel.my_videos',
+
+    'test_without_migrations',
 ]
 
 MIDDLEWARE = [
